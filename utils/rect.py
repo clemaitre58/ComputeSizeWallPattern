@@ -206,39 +206,54 @@ class Point(object):
     ----------
     """
     def __init__(self, x, y):
+        """Constructor by default"""
         self._x = float(x)
         self._y = float(y)
 
     @classmethod
     def from_point(cls, point):
-        """Constructor using a Point"""
+        """Constructor using a Point
+
+        You can construct a point with `p = Point.from_point(Point(1, 1))`
+        """
         cls._x = point.x
         cls._y = point.y
 
     @property
     def x(self):
+        """Getter for x
+
+        Since that _x is kinda of protected, this is property to have
+        read-only access on _x. So you can do p.x to read but you cannot
+        not do p.x = 1.
+        """
         return self._x
 
     @property
     def y(self):
+        """Getter for y"""
         return self._y
 
     def __add__(self, other):
+        """This is the add operator"""
         if isinstance(other, Point):
             return Point(self._x + other.x, self._y + other.y)
         else:
             NotImplemented
 
     def __sub__(self, other):
+        """This is the subtract operator"""
         if isinstance(other, Point):
             return Point(self._x - other.x, self._y - other.y)
         else:
             NotImplemented
 
     def __repr__(self):
+        """This the representation if you put `p` in command line"""
         return '({}, {})'.format(self._x, self._y)
 
     def __str__(self):
+        """This the string which is shown while `print(p)`"""
         return 'Point: (x={}, y={})'.format(self._x, self._y)
 
 
