@@ -1,4 +1,4 @@
-from numpy as np
+import numpy as np
 class rect(object):
     def __init__(self, top_corner = None , width = 0, height = 0, ouverture = 60):
         if top_corner and width and height :
@@ -100,24 +100,24 @@ class rect(object):
         
     def GiveAssociateCorner(self, num_cam):
 
-        if num_cam = 1 :
+        if num_cam == 1 :
             return 4
-        if num_cam = 2 :
+        if num_cam == 2 :
             return 3
-        if num_cam = 3 :
+        if num_cam == 3 :
             return 2
-        if num_cam = 4 :
+        if num_cam == 4 :
             return 1
 
     def GiveRotationSens(self, num_cam):
 
-        if num_cam = 1 :
+        if num_cam == 1 :
             return 1
-        if num_cam = 2 :
+        if num_cam == 2 :
             return -1
-        if num_cam = 3 :
+        if num_cam == 3 :
             return 1
-        if num_cam = 4 :
+        if num_cam == 4 :
             return -1
 
 

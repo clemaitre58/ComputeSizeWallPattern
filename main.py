@@ -1,4 +1,4 @@
-from utils import *
+import utils.rect 
 
 #construction objet rect
 mon_rect = rect(width = 170, heigth = 100, ouverture = 60)
