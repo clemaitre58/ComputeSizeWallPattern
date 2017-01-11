@@ -132,13 +132,14 @@ class Rect(object):
         return self._corners_rect_2
 
     def ComputePtOn2ndForCam(self, num_cam):
-        num_corner = GiveAssociateCorner( num_cam)
+        import pudb; pu.db 
+        num_corner = self.GiveAssociateCorner(num_cam)
         #get le sens of rotation
-        ouverture = _ouverture * GiveRotationSens(num_cam)
-        point_cam = _tab_point_2nd_rect[num_cam]
-        point_corner = _tab_point_1st_rect[num_corner]
-        a, b = ComputeABDroite(point_cam, point_corner)
-        yp = _tab_point_2nd_rect[num_corner].y
+        ouverture = int(self._ouverture) * int(self.GiveRotationSens(num_cam))
+        point_cam = self._corners_rect_2[num_cam-1]
+        point_corner = self._corners_rect_1[num_corner-1]
+        a, b = compute_line(point_cam, point_corner)
+        yp = self._corners_rect_2[num_corner-1].y
         xp = (yp -b ) / a
         # compute transform xp,yp with rotation of aperture
         # with center point_cam
@@ -157,8 +158,8 @@ class Rect(object):
         Xrt = T * X
         point_tr = Point(Xrt[0,0], Xrt[0,1])
         # compute line equation of other support line of aperture
-        atr, btr = ComputeABDroite(point_cam, point_tr)
-        xpp = -1 * _tab_point_2nd_rect[num_cam].x
+        atr, btr = compute_line(point_cam, point_tr)
+        xpp = -1 * self._tab_point_2nd_rect[num_cam-1].x
         ypp = atr * xpp + btr
 
         point_p = Point(xp, yp)
