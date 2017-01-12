@@ -2,7 +2,7 @@ from __future__ import division, print_function
 import numpy as np
 
 
-def compute_line(self, p1, p2):
+def compute_line(p1, p2):
     """Compute a line passing by 2 Points
 
     Parameters
@@ -149,7 +149,6 @@ class Rect(object):
         return self._corners_rect_2
 
     def ComputePtOn2ndForCam(self, num_cam):
-        import pudb; pu.db
         num_corner = self.GiveAssociateCorner(num_cam)
         #get le sens of rotation
         ouverture = int(self._ouverture) * int(self.GiveRotationSens(num_cam))
@@ -161,22 +160,26 @@ class Rect(object):
         # compute transform xp,yp with rotation of aperture
         # with center point_cam
         # translation matrix
-        T = np.matrix([[1, 0, -1*point_cam.x], [0, -1*point_cam.y, -1],
+        T_moins = np.matrix([[1, 0, -point_cam.x], [0, 1,-point_cam.y],
+            [0, 0, 1]])
+        T_plus = np.matrix([[1, 0, point_cam.x], [0, 1,point_cam.y],
             [0, 0, 1]])
         # rotation matrix
         R = np.matrix(
-                [[np.cos(np.radian(_ouverture)), -1 * np.sin(np.radian(_ouverture)), 0],
-                [np.sin(np.radian(ouverture)), np.cos(np.radian(ouverture)), 0],
+                [[np.cos(np.radians(ouverture)), -1 * np.sin(np.radians(ouverture)), 0],
+                [np.sin(np.radians(ouverture)), np.cos(np.radians(ouverture)), 0],
                 [0, 0, 1]])
         #compute Trt
-        Trt = R * T
+        Trt = T_plus * R * T_moins
+
         # place point to transform in a matrix
-        X = np.matrix(xp, yp, 1)
-        Xrt = T * X
-        point_tr = Point(Xrt[0,0], Xrt[0,1])
+        X = np.matrix([[xp], [yp], [1]])
+        Xrt = Trt * X
+        import pudb; pu.db
+        point_tr = Point(Xrt[0, 0], Xrt[1, 0])
         # compute line equation of other support line of aperture
         atr, btr = compute_line(point_cam, point_tr)
-        xpp = -1 * self._tab_point_2nd_rect[num_cam-1].x
+        xpp = -1 * self._corners_rect_2[num_cam-1].x
         ypp = atr * xpp + btr
 
         point_p = Point(xp, yp)

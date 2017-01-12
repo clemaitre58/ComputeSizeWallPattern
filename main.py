@@ -1,5 +1,3 @@
-from utils.rect import Rect, Point
-
 # construction objet rect
 centre = Point(0, 0)
 mon_rect = Rect(centre, width = 170, height = 100, ouverture = 60)
