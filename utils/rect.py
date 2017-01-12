@@ -175,7 +175,6 @@ class Rect(object):
         # place point to transform in a matrix
         X = np.matrix([[xp], [yp], [1]])
         Xrt = Trt * X
-        import pudb; pu.db
         point_tr = Point(Xrt[0, 0], Xrt[1, 0])
         # compute line equation of other support line of aperture
         atr, btr = compute_line(point_cam, point_tr)
