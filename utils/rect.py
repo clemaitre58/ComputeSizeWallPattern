@@ -92,7 +92,6 @@ class Rect(object):
             raise ValueError('width and height should > 0, got'
                              ' width={} / height={}'.format(self.width,
                                                             self.height))
-
         return [p1, p2, p3, p4]
 
     def compute_corners_rect_1(self):
@@ -125,14 +124,32 @@ class Rect(object):
         -------
 
         """
+        if delta_width > 50 and delta_width > 50:
+            p1 = Point(
+                    self._corners_rect_1[0].x - delta_width,
+                    self._corners_rect_1[0].y + delta_height,
+                    )
 
-        self._corners_rect_2 = self._compute_corners(float(delta_width),
-                                                    float(delta_height))
+            p2 = Point(
+                    self._corners_rect_1[1].x + delta_width,
+                    self._corners_rect_1[1].y + delta_height,
+                    )
 
+            p3 = Point(
+                    self._corners_rect_1[2].x + delta_width,
+                    self._corners_rect_1[2].y - delta_height,
+                    )
+
+            p4 = Point(
+                    self._corners_rect_1[3].x - delta_width,
+                    self._corners_rect_1[3].y - delta_height,
+                    )
+
+        self._corners_rect_2 = [p1, p2, p3, p4]
         return self._corners_rect_2
 
     def ComputePtOn2ndForCam(self, num_cam):
-        import pudb; pu.db 
+        import pudb; pu.db
         num_corner = self.GiveAssociateCorner(num_cam)
         #get le sens of rotation
         ouverture = int(self._ouverture) * int(self.GiveRotationSens(num_cam))
