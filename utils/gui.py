@@ -22,4 +22,7 @@ def draw_all_cam(cam, width, height):
         i = i+1
         ax = plt.gca()
         ax.add_artist(cir_cam)
+    ax.set_xlim((-width/2, width/2))
+    ax.set_ylim((-height/2, height/2))
+    plt.savefig('config_cam.png')
     plt.show()
