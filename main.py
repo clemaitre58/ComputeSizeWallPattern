@@ -1,5 +1,6 @@
 from utils.rect import Point, Rect, Cam
 import numpy as np
+from utils.gui import *
 # construction objet rect
 centre = Point(0, 0)
 mon_rect = Rect(centre, width = 170, height = 100, ouverture = 60)
@@ -21,3 +22,4 @@ for i in range(4):
     if i == 3:
         distance = np.abs(list_cam[i]._p_plan.y - list_cam[0]._p_plan.y)
         print "Couple de camera : " + str(i) + "-" + str(0) + " distance : " + str(distance)
+        draw_all_cam(list_cam, 170+2*90, 100+2*60)

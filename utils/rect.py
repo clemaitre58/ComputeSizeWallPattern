@@ -185,7 +185,7 @@ class Rect(object):
 
         point_p = Point(xp, yp)
         point_pp = Point(xpp, ypp)
-        cam_rtn = Cam(num_cam, point_p, point_pp)
+        cam_rtn = Cam(num_cam, point_cam, point_p, point_pp)
         cam_rtn.a = a
         cam_rtn.b = b
         cam_rtn.ap = atr
@@ -283,8 +283,9 @@ class Point(object):
 
 
 class Cam(object):
-    def __init__(self, num_cam, p_plan, pp_plan):
+    def __init__(self, num_cam, p_cam, p_plan, pp_plan):
         self._num_cam = num_cam
+        self._p_cam = p_cam
         self._p_plan = p_plan
         self._pp_plan = pp_plan
         self._a = 0.0
@@ -294,32 +295,47 @@ class Cam(object):
 
     @property
     def a(self):
-        return _a
+        return self._a
 
     @property
     def b(self):
-        return _b
+        return self._b
 
     @property
     def ap(self):
-        return _ap
+        return self._ap
 
     @property
     def bp(self):
-        return _bp
+        return self._bp
+    @property
+    def num_cam(self):
+        return self._num_cam
+
+    @property
+    def p_cam(self):
+        return self._p_cam
+
     @a.setter
     def a(self, value):
         self._a = value
 
     @b.setter
-    def b(self, b):
-        self._b = b
+    def b(self, value):
+        self._b = value
 
     @ap.setter
-    def ap(self, ap):
-        self._ap = ap
+    def ap(self, value):
+        self._ap = value
         
     @bp.setter
-    def bp(self, bp):
-        self._bp = bp
+    def bp(self, value):
+        self._bp = value
     
+    @num_cam.setter
+    def num_cam(self, value):
+        self._num_cam = value
+    
+    @p_cam.setter
+    def p_cam(self, value):
+        self._p_cam = value
