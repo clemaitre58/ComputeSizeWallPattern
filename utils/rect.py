@@ -160,14 +160,16 @@ class Rect(object):
         # compute transform xp,yp with rotation of aperture
         # with center point_cam
         # translation matrix
-        T_moins = np.matrix([[1, 0, -point_cam.x], [0, 1,-point_cam.y],
+        T_moins = np.matrix([[1, 0, -point_cam.x], [0, 1, -point_cam.y],
             [0, 0, 1]])
-        T_plus = np.matrix([[1, 0, point_cam.x], [0, 1,point_cam.y],
+        T_plus = np.matrix([[1, 0, point_cam.x], [0, 1, point_cam.y],
             [0, 0, 1]])
         # rotation matrix
         R = np.matrix(
-                [[np.cos(np.radians(ouverture)), -1 * np.sin(np.radians(ouverture)), 0],
-                [np.sin(np.radians(ouverture)), np.cos(np.radians(ouverture)), 0],
+                [[np.cos(np.radians(ouverture)), -1
+                    * np.sin(np.radians(ouverture)), 0],
+                [np.sin(np.radians(ouverture)),
+                    np.cos(np.radians(ouverture)), 0],
                 [0, 0, 1]])
         #compute Trt
         Trt = T_plus * R * T_moins
@@ -184,30 +186,33 @@ class Rect(object):
         point_p = Point(xp, yp)
         point_pp = Point(xpp, ypp)
         cam_rtn = Cam(num_cam, point_p, point_pp)
-
+        cam_rtn.a = a
+        cam_rtn.b = b
+        cam_rtn.ap = atr
+        cam_rtn.bp = btr
         return cam_rtn
 
 
     def GiveAssociateCorner(self, num_cam):
 
-        if num_cam == 1 :
+        if num_cam == 1:
             return 4
-        if num_cam == 2 :
+        if num_cam == 2:
             return 3
-        if num_cam == 3 :
+        if num_cam == 3:
             return 2
-        if num_cam == 4 :
+        if num_cam == 4:
             return 1
 
     def GiveRotationSens(self, num_cam):
 
-        if num_cam == 1 :
+        if num_cam == 1:
             return 1
-        if num_cam == 2 :
+        if num_cam == 2:
             return -1
-        if num_cam == 3 :
+        if num_cam == 3:
             return 1
-        if num_cam == 4 :
+        if num_cam == 4:
             return -1
 
 
@@ -278,7 +283,44 @@ class Point(object):
 
 
 class Cam(object):
-    def __init__(self, num_cam, p_plan, pp_plan):
+    def __init__(self, num_cam, p_plan, pp_plan, a = 0.0,
+            b = 0.0, ap = 0.0, bp = 0.0 ):
         self._num_cam = num_cam
         self._p_plan = p_plan
         self._pp_plan = pp_plan
+        self._a = a
+        self._b = b
+        self._bp = bp
+        self._ap = ap
+
+    @a.setter
+    def a(self, a):
+        self._a = a
+
+    @b.setter
+    def b(self, b):
+        self._b = b
+
+    @ap.setter
+    def ap(self, ap):
+        self._ap = ap
+        
+    @bp.setter
+    def bp(self, bp):
+        self._bp = bp
+    
+    @property
+    def a(self):
+        return _a
+
+    @property
+    def b(self):
+        return _b
+
+    @property
+    def ap(self):
+        return _ap
+
+    @property
+    def bp(self):
+        return _bp
