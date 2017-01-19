@@ -283,32 +283,15 @@ class Point(object):
 
 
 class Cam(object):
-    def __init__(self, num_cam, p_plan, pp_plan, a = 0.0,
-            b = 0.0, ap = 0.0, bp = 0.0 ):
+    def __init__(self, num_cam, p_plan, pp_plan):
         self._num_cam = num_cam
         self._p_plan = p_plan
         self._pp_plan = pp_plan
-        self._a = a
-        self._b = b
-        self._bp = bp
-        self._ap = ap
+        self._a = 0.0
+        self._b = 0.0
+        self._bp = 0.0
+        self._ap = 0.0
 
-    @a.setter
-    def a(self, a):
-        self._a = a
-
-    @b.setter
-    def b(self, b):
-        self._b = b
-
-    @ap.setter
-    def ap(self, ap):
-        self._ap = ap
-        
-    @bp.setter
-    def bp(self, bp):
-        self._bp = bp
-    
     @property
     def a(self):
         return _a
@@ -324,3 +307,19 @@ class Cam(object):
     @property
     def bp(self):
         return _bp
+    @a.setter
+    def a(self, value):
+        self._a = value
+
+    @b.setter
+    def b(self, b):
+        self._b = b
+
+    @ap.setter
+    def ap(self, ap):
+        self._ap = ap
+        
+    @bp.setter
+    def bp(self, bp):
+        self._bp = bp
+    
